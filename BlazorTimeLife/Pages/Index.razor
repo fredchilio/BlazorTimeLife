@@ -1,0 +1,33 @@
+﻿@page "/"
+@implements IDisposable
+
+<h1>Title</h1>
+<h2>I was renderezed at @TimeRender</h2>
+@code{
+    private string Title { get; set; }
+    private string TimeRender { get; set; }
+
+    protected override void OnInitialized()
+    {
+        TimeRender = DateTime.Now.ToLongTimeString();
+        Console.WriteLine($"The Component started : at {TimeRender}");
+        Title = "Hello Blazor";
+    }
+    protected override void OnParametersSet()
+    {
+        TimeRender = DateTime.Now.ToLongTimeString();
+        Console.WriteLine($"The OnParametersSet started : at {TimeRender}");
+        Console.WriteLine($"-->Received father parameters");
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        TimeRender = DateTime.Now.ToLongTimeString();
+        Console.WriteLine($"The OnAfterRender first time = {firstRender}");
+        Console.WriteLine($"Finished rendererization : at {TimeRender}");
+    }
+    public void Dispose()
+    {
+        TimeRender = DateTime.Now.ToLongTimeString();
+        Console.WriteLine($"--> The component was free : at {TimeRender}");
+    }
+}
